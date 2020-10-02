@@ -1,0 +1,33 @@
+version: '3'
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: .Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./server:/app
+    ports:
+      - '4000:4000'
+  client:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./client
+      dockerfile: .Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    ports:
+      - '8080:8080'
+  biz:
+    stdin_open: true
+    tty: true
+    build:
+      context: ./biz
+      dockerfile: .Dockerfile
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+    ports:
+      - '8081:8081'
